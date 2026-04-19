@@ -428,10 +428,21 @@ CLASS_META = {
 CLASS_NAMES = list(CLASS_META.keys())
 
 @st.cache_resource(show_spinner=False)
+import os
+
+@st.cache_resource(show_spinner=False)
 def load_model():
     try:
-        return YOLO("src/best.pt")
-    except Exception:
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        MODEL_PATH = os.path.join(BASE_DIR, "best.pt")
+
+        print("Model path:", MODEL_PATH)
+        print("Exists:", os.path.exists(MODEL_PATH))
+
+        return YOLO(MODEL_PATH)
+
+    except Exception as e:
+        print("Model load error:", e)
         return None
 
 model = load_model()
