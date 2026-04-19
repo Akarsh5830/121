@@ -430,7 +430,7 @@ CLASS_NAMES = list(CLASS_META.keys())
 @st.cache_resource(show_spinner=False)
 def load_model():
     try:
-        return YOLO("best.pt")
+        return YOLO("src/best.pt")
     except Exception:
         return None
 
