@@ -1,0 +1,8 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "pip uninstall -y opencv-python && streamlit run src/streamlit_app.py --server.port=$PORT --server.address=0.0.0.0"
+  }
+}
