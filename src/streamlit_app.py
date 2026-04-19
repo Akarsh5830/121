@@ -427,8 +427,7 @@ CLASS_META = {
 }
 CLASS_NAMES = list(CLASS_META.keys())
 
-@st.cache_resource(show_spinner=False)
-import os
+
 
 @st.cache_resource(show_spinner=False)
 def load_model():
