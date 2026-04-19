@@ -432,16 +432,23 @@ CLASS_NAMES = list(CLASS_META.keys())
 @st.cache_resource(show_spinner=False)
 def load_model():
     try:
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        MODEL_PATH = os.path.join(BASE_DIR, "best.pt")
+        base = os.path.dirname(os.path.abspath(__file__))
 
-        print("Model path:", MODEL_PATH)
-        print("Exists:", os.path.exists(MODEL_PATH))
+        possible_paths = [
+            os.path.join(base, "best.pt"),   # src/best.pt
+            os.path.join(base, "..", "best.pt"),  # root/best.pt
+            "best.pt"
+        ]
 
-        return YOLO(MODEL_PATH)
+        for path in possible_paths:
+            if os.path.exists(path):
+                print("✅ Model found at:", path)
+                return YOLO(path)
+
+        raise FileNotFoundError("Model not found in any expected location")
 
     except Exception as e:
-        print("Model load error:", e)
+        print("❌ Model load error:", e)
         return None
 
 model = load_model()
